@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utilities/customVibration.dart';
-import 'package:flutter_application_1/widgets/custemSlider.dart';
+import 'package:flutter_application_1/widgets/customButtons.dart';
+import 'package:flutter_application_1/widgets/customSlider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,20 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var s = CustomVibrationPattern.values
-        .map((e) => (TextButton(
-              child: Text(e.patternType.toString()),
-              onPressed: () {
-                setState(() {
-                  _pattern = e;
-                });
-              },
-            )))
-        .toList();
     return Column(
       children: <Widget>[
         Row(
-          //mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             const Text('진동 세기',
                 textAlign: TextAlign.left,
@@ -75,29 +65,20 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: CustomVibrationPattern.values
-                .map((e) => (TextButton(
-                      child: Text(e.patternName,
-                          style: TextStyle(
-                            color: e == _pattern
-                                ? Colors.white
-                                : Colors.pinkAccent,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          )),
-                      onPressed: () {
-                        CustomVibration.pattern(e);
-                        setState(() {
-                          _pattern = e;
-                        });
-                      },
-                      style: TextButton.styleFrom(
-                          backgroundColor:
-                              e == _pattern ? Colors.pinkAccent : Colors.white),
-                    )))
-                .toList())
+        CustomButtons<CustomVibrationPattern>(
+          _pattern,
+          CustomVibrationPattern.values.map((item) {
+            ButtonItem<CustomVibrationPattern> buttonItem =
+                ButtonItem<CustomVibrationPattern>(item.patternName, item);
+            return buttonItem;
+          }).toList(),
+          (value) {
+            CustomVibration.pattern(value);
+            setState(() {
+              _pattern = value;
+            });
+          },
+        )
       ],
     );
   }

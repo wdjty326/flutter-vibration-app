@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 /// Flutter code sample for [Slider].
 
 class CustomSlider extends StatelessWidget {
-  const CustomSlider(this._currentSliderValue, this.onChanged, {Key? key})
-      : super(key: key);
+  const CustomSlider(this._currentSliderValue, this.onChanged, {super.key});
 
   final double _currentSliderValue;
   final ValueChanged<double> onChanged;
