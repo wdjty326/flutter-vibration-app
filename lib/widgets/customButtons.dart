@@ -22,26 +22,29 @@ class CustomButtons<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: _list
-            .map((item) => (TextButton(
-                  onPressed: () {
-                    onChanged(item.value);
-                  },
-                  style: TextButton.styleFrom(
-                      backgroundColor: item.value == _value
-                          ? Colors.pinkAccent
-                          : Colors.white),
-                  child: Text(item.name,
-                      style: TextStyle(
-                        color: item.value == _value
-                            ? Colors.white
-                            : Colors.pinkAccent,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      )),
-                )))
-            .toList());
+    return Container(
+      margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+      child: Wrap(
+          spacing: 10,
+          children: _list
+              .map((item) => (OutlinedButton(
+                    onPressed: () {
+                      onChanged(item.value);
+                    },
+                    style: OutlinedButton.styleFrom(
+                        side: BorderSide(width: 2, color: Colors.white),
+                        backgroundColor:
+                            item.value == _value ? Colors.pink : Colors.white),
+                    child: Text(item.name,
+                        style: TextStyle(
+                          color: item.value == _value
+                              ? Colors.white
+                              : Colors.pinkAccent,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  )))
+              .toList()),
+    );
   }
 }

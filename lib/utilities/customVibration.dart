@@ -9,8 +9,31 @@ enum CustomVibrationPattern {
       patternList: [100, 300, 100, 500]), // 바운스
   daily(
       patternName: '하루종일',
-      patternType: 2,
-      patternList: [0, 1000 * 60 * 60 * 24]); // 하루동안울림
+      patternType: 3,
+      patternList: [0, 1000 * 60 * 60 * 24]);
+  //breadpare(
+  //  patternName: '빵파레',
+  //  patternList: [
+  //    0,
+  //    300,
+  //    50,
+  //    100,
+  //    50,
+  //    3000,
+  //    500,
+  //    100,
+  //    50,
+  //    100,
+  //    50,
+  //    100,
+  //    300,
+  //    50,
+  //    100,
+  //    50,
+  //    3000,
+  //  ],
+  //  patternType: 4,
+  //); // 하루동안울림
 
   final String patternName;
   final int patternType;
