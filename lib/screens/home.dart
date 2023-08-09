@@ -27,13 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Text('진동 세기',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                )),
+            //const Text('진동 세기',
+            //    textAlign: TextAlign.left,
+            //    style: TextStyle(
+            //      color: Colors.white70,
+            //      fontSize: 20,
+            //      fontWeight: FontWeight.bold,
+            //    )),
             CustomSlider(_amplitude, updateAmplitude),
           ],
         ),

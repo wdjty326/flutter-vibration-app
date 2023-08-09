@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/guide.dart';
 import 'package:flutter_application_1/screens/home.dart';
+import 'package:flutter_application_1/utilities/customVibration.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,13 +32,38 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    super.didChangeAppLifecycleState(state);
+    debugPrint('life state:${state.toString()}');
+    bool isVibrate = await CustomVibration.hasVibrator();
+    switch (state) {
+      case AppLifecycleState.inactive:
+        if (isVibrate) CustomVibration.cancel();
+        break;
+      default:
+    }
   }
 
   @override
