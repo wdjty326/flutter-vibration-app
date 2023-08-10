@@ -10,10 +10,37 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   double _amplitude = 0;
   CustomVibrationPattern _pattern = CustomVibrationPattern.normal;
   bool _isVibrate = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    super.didChangeAppLifecycleState(state);
+    debugPrint('life state:${state.toString()}');
+    bool isVibrate = await CustomVibration.hasVibrator();
+    switch (state) {
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.paused:
+        if (isVibrate) CustomVibration.cancel();
+        _isVibrate = false;
+        break;
+      default:
+    }
+  }
 
   void updateAmplitude(double value) {
     setState(() {
@@ -26,15 +53,18 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       children: <Widget>[
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            //const Text('진동 세기',
-            //    textAlign: TextAlign.left,
-            //    style: TextStyle(
-            //      color: Colors.white70,
-            //      fontSize: 20,
-            //      fontWeight: FontWeight.bold,
-            //    )),
             CustomSlider(_amplitude, updateAmplitude),
+            Container(
+              //padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(left: 20.0),
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: Color(0xFFFFFF)),
+              //color: Colors.white,
+              child: Text((_amplitude ~/ 51).toInt().toString()),
+            )
           ],
         ),
         TextButton(
@@ -48,8 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 return;
               }
 
-              CustomVibration.vibrate(_amplitude.round());
-              _isVibrate = true;
+              if (CustomVibration.vibrate(_amplitude.round())) {
+                _isVibrate = true;
+              }
             });
           },
           style: TextButton.styleFrom(

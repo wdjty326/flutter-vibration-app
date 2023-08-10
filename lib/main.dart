@@ -32,38 +32,14 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
+class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
+      if (index == 1) CustomVibration.cancel();
       _selectedIndex = index;
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    super.didChangeAppLifecycleState(state);
-    debugPrint('life state:${state.toString()}');
-    bool isVibrate = await CustomVibration.hasVibrator();
-    switch (state) {
-      case AppLifecycleState.inactive:
-        if (isVibrate) CustomVibration.cancel();
-        break;
-      default:
-    }
   }
 
   @override
@@ -78,7 +54,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       body: Container(
           //width: double.infinity,
           margin: const EdgeInsets.all(20),
-          child: _selectedIndex == 0 ? const HomeScreen() : GuideScreen()),
+          child:
+              _selectedIndex == 0 ? const HomeScreen() : const GuideScreen()),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

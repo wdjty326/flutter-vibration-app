@@ -56,14 +56,18 @@ class CustomVibration {
     return _isVibrate;
   }
 
-  static void vibrate(int amplitude) {
+  static bool vibrate(int amplitude) {
     debugPrint('vibate@${amplitude.toString()}');
-
+    if (amplitude == 0) return false; // 진동이 0이면 실행하지 않음
     if (!_isVibrate) {
       Vibration.vibrate(
-          pattern: _pattern.patternList, repeat: 1, amplitude: amplitude);
+          pattern: _pattern.patternList,
+          repeat: 1,
+          amplitude: amplitude,
+          intensities: [0, amplitude]);
     }
     _isVibrate = true;
+    return true;
   }
 
   static void pattern(CustomVibrationPattern pattern) {
@@ -71,9 +75,12 @@ class CustomVibration {
   }
 
   static void cancel() {
-    debugPrint('cacnel');
-
-    if (_isVibrate) Vibration.cancel();
+    debugPrint('cancel');
+    try {
+      if (_isVibrate) Vibration.cancel();
+    } on Exception catch (e) {
+      debugPrint('cancel:$e');
+    }
     _isVibrate = false;
   }
 }

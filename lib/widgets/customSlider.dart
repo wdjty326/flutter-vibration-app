@@ -10,37 +10,29 @@ class CustomSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliderTheme(
-      data: SliderTheme.of(context).copyWith(
-        //activeTrackColor: Colors.blue,
-        //inactiveTrackColor: Colors.blue,
-        trackShape: RectangularSliderTrackShape(),
-        trackHeight: 4.0,
-        //thumbColor: Colors.blueAccent,
-        thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
-        overlayColor: Colors.red.withAlpha(32),
-        overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
-      ),
-      child: Container(
-        height: 200,
-        decoration: BoxDecoration(
-            // 레이아웃확인용 코드
-            border: Border(
-                bottom: BorderSide(width: 2),
-                top: BorderSide(width: 2),
-                right: BorderSide(width: 2),
-                left: BorderSide(width: 2))),
-        child: Transform(
-          alignment: FractionalOffset.center,
-          transform: Matrix4.identity()..rotateZ(90 * 3.1415927 / 180),
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+      child: RotatedBox(
+        quarterTurns: 3,
+        child: SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            //activeTrackColor: Colors.blue,
+            //inactiveTrackColor: Colors.blue,
+            trackHeight: 72,
+            overlayColor: Colors.red.withAlpha(32),
+            trackShape: RoundedRectSliderTrackShape(),
+            thumbShape: RoundSliderThumbShape(enabledThumbRadius: 0),
+            overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
+            //valueIndicatorShape: RoundSliderOverlayShape()
+          ),
           child: Slider(
-            min: 1.0,
+            min: 0.0,
             max: 255.0,
             value: _currentSliderValue,
-            divisions: 51,
-            label: _currentSliderValue.round().toString(),
+            divisions: 5,
+            //label: (_currentSliderValue ~/ 51.0).toInt().toString(),
             onChanged: onChanged,
-            activeColor: Colors.pink,
+            //activeColor: Colors.pink,
           ),
         ),
       ),
