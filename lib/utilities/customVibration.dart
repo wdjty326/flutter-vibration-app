@@ -10,30 +10,7 @@ enum CustomVibrationPattern {
   daily(
       patternName: '하루종일',
       patternType: 3,
-      patternList: [0, 1000 * 60 * 60 * 24]);
-  //breadpare(
-  //  patternName: '빵파레',
-  //  patternList: [
-  //    0,
-  //    300,
-  //    50,
-  //    100,
-  //    50,
-  //    3000,
-  //    500,
-  //    100,
-  //    50,
-  //    100,
-  //    50,
-  //    100,
-  //    300,
-  //    50,
-  //    100,
-  //    50,
-  //    3000,
-  //  ],
-  //  patternType: 4,
-  //); // 하루동안울림
+      patternList: [0, 1000 * 60 * 60 * 24]); // 하루동안울림
 
   final String patternName;
   final int patternType;
@@ -58,13 +35,16 @@ class CustomVibration {
 
   static bool vibrate(int amplitude) {
     debugPrint('vibate@${amplitude.toString()}');
-    if (amplitude == 0) return false; // 진동이 0이면 실행하지 않음
     if (!_isVibrate) {
+      int loop = _pattern.patternList.length ~/ 2;
+      List<int> intensities = [];
+
+      for (int i = 0; i < loop; i++) {
+        intensities.addAll([1, amplitude]);
+      }
+
       Vibration.vibrate(
-          pattern: _pattern.patternList,
-          repeat: 1,
-          amplitude: amplitude,
-          intensities: [0, amplitude]);
+          pattern: _pattern.patternList, intensities: intensities, repeat: 1);
     }
     _isVibrate = true;
     return true;

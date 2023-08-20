@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
-/// Flutter code sample for [Slider].
+//class CustomSliderThumbShape extends RoundSliderThumbShape {
+//  const CustomSliderThumbShape(s)
+
+//  @override
+//  void paint(PaintingContext context, Offset center, {required Animation<double> activationAnimation, required Animation<double> enableAnimation, required bool isDiscrete, required TextPainter labelPainter, required RenderBox parentBox, required SliderThemeData sliderTheme, required TextDirection textDirection, required double value, required double textScaleFactor, required Size sizeWithOverflow}) {
+//    // TODO: implement paint
+//    super.paint(context, center, activationAnimation, enableAnimation, isDiscrete, labelPainter, parentBox, sliderTheme, textDirection, value, textScaleFactor, sizeWithOverflow);
+//  }
+//}
 
 class CustomSlider extends StatelessWidget {
   const CustomSlider(this._currentSliderValue, this.onChanged, {super.key});
@@ -11,28 +19,25 @@ class CustomSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+      padding: const EdgeInsets.only(top: 20, bottom: 20),
       child: RotatedBox(
         quarterTurns: 3,
         child: SliderTheme(
           data: SliderTheme.of(context).copyWith(
-            //activeTrackColor: Colors.blue,
-            //inactiveTrackColor: Colors.blue,
-            trackHeight: 72,
-            overlayColor: Colors.red.withAlpha(32),
-            trackShape: RoundedRectSliderTrackShape(),
-            thumbShape: RoundSliderThumbShape(enabledThumbRadius: 0),
-            overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
-            //valueIndicatorShape: RoundSliderOverlayShape()
-          ),
+              trackHeight: 72,
+              overlayColor: Colors.red.withAlpha(32),
+              thumbShape: const RoundSliderThumbShape(
+                  enabledThumbRadius: 0,
+                  disabledThumbRadius: 36,
+                  elevation: 0,
+                  pressedElevation: 0),
+              overlayShape: const RoundSliderOverlayShape(overlayRadius: 0.0)),
           child: Slider(
             min: 0.0,
             max: 255.0,
             value: _currentSliderValue,
             divisions: 5,
-            //label: (_currentSliderValue ~/ 51.0).toInt().toString(),
             onChanged: onChanged,
-            //activeColor: Colors.pink,
           ),
         ),
       ),

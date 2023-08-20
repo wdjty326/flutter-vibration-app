@@ -42,9 +42,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     }
   }
 
-  void updateAmplitude(double value) {
+  void updateAmplitude(double value) async {
+    bool hasVibrator = await CustomVibration.hasVibrator();
     setState(() {
       _amplitude = value;
+      if (hasVibrator) {
+        CustomVibration.cancel();
+        CustomVibration.vibrate(value.round());
+      }
     });
   }
 
@@ -52,19 +57,24 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CustomSlider(_amplitude, updateAmplitude),
             Container(
-              //padding: const EdgeInsets.all(10),
-              margin: const EdgeInsets.only(left: 20.0),
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              width: 72,
               decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Color(0xFFFFFF)),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Colors.white),
               //color: Colors.white,
-              child: Text((_amplitude ~/ 51).toInt().toString()),
-            )
+              child: Text((_amplitude ~/ 51).toString(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color: Colors.pinkAccent,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15)),
+            ),
+            CustomSlider(_amplitude, updateAmplitude),
           ],
         ),
         TextButton(
@@ -88,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             minimumSize: const Size(180, 50),
           ),
           child: Text(
-            _isVibrate ? '멈추기' : '울리기',
+            _isVibrate ? '정지' : '시작',
             style: const TextStyle(
               color: Colors.pinkAccent,
               fontSize: 16,
