@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/services/patterns.dart';
 import 'package:flutter_application_1/utilities/customVibration.dart';
+import 'package:flutter_application_1/widgets/baseLayout.dart';
 import 'package:flutter_application_1/widgets/customButtons.dart';
 import 'package:flutter_application_1/widgets/customSlider.dart';
 
@@ -32,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     super.didChangeAppLifecycleState(state);
     debugPrint('life state:${state.toString()}');
     bool isVibrate = await CustomVibration.hasVibrator();
+
     switch (state) {
       case AppLifecycleState.inactive:
       case AppLifecycleState.paused:
@@ -43,7 +46,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   void updateAmplitude(double value) async {
+    //var obj = await getVibrationPatterns();
     bool hasVibrator = await CustomVibration.hasVibrator();
+
     setState(() {
       _amplitude = value;
       if (hasVibrator) {
@@ -55,7 +60,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return BaseLayout(
+        child: Column(
       children: <Widget>[
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -121,6 +127,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           },
         )
       ],
-    );
+    ));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/widgets/baseLayout.dart';
 
 const _headingStyle = TextStyle(
   fontSize: 28,
@@ -20,7 +21,8 @@ class GuideScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return BaseLayout(
+        child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -109,6 +111,6 @@ class GuideScreen extends StatelessWidget {
           )
         ],
       ),
-    );
+    ));
   }
 }

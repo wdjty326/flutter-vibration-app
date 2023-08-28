@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "155604746951",
+    "project_id": "flutter-vibration-app",
+    "storage_bucket": "flutter-vibration-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155604746951:android:d929f16904eccca52374e2",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155604746951-9sfkn0bcagsar29h831fl1tfj0pmsq8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArs6D31p-9tOOqI1Qgi14MpX3gCvhnzpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155604746951-9sfkn0bcagsar29h831fl1tfj0pmsq8o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "155604746951-kdrm4te2f4eintr0nhi43rlmnl7m0sit.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterApplication1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
