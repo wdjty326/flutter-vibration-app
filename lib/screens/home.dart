@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/services/patterns.dart';
+import 'package:flutter_application_1/resources/patternApiProvider.dart';
 import 'package:flutter_application_1/utilities/customVibration.dart';
 import 'package:flutter_application_1/widgets/baseLayout.dart';
 import 'package:flutter_application_1/widgets/customButtons.dart';
